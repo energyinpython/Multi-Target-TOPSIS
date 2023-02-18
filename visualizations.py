@@ -90,6 +90,7 @@ def draw_heatmap(df_new_heatmap, title, lastC, year):
     plt.xlabel('Methods')
     plt.title('Correlation: ' + title + ', year: ' + year)
     plt.tight_layout()
+    title = title.replace('$', '')
     plt.savefig('./output/' + 'correlations_' + title + '_' + lastC + '_' + year + '.pdf')
     plt.savefig('./output/' + 'correlations_' + title + '_' + lastC + '_' + year + '.png')
     plt.show()
