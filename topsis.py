@@ -1,5 +1,4 @@
 import numpy as np
-import sys
 
 from pyrepo_mcda import normalizations as norms
 from mcdm_method import MCDM_method, MCDM_method_targeted

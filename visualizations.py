@@ -24,8 +24,8 @@ def plot_barplot(df_plot, list_alt_names, colors, lastC, year):
     ax.grid(True, linestyle = ':')
     ax.set_axisbelow(True)
     plt.tight_layout()
-    plt.savefig('./output/' + 'bar_chart_' + lastC + '_' + year + '.pdf')
-    plt.savefig('./output/' + 'bar_chart_' + lastC + '_' + year + '.png')
+    plt.savefig('./results/' + 'bar_chart_' + lastC + '_' + year + '.pdf')
+    plt.savefig('./results/' + 'bar_chart_' + lastC + '_' + year + '.png')
     plt.show()
 
 
@@ -50,7 +50,7 @@ def plot_barplot_sensitivity(df_plot, list_alt_names, method_name, criterion_nam
     ax.grid(True, linestyle = ':')
     ax.set_axisbelow(True)
     plt.tight_layout()
-    plt.savefig('./output/sensitivity_analysis_results/' + 'sens_' + 'hist_' + method_name + '_' + criterion_name + '.png')
+    plt.savefig('./results/sensitivity_analysis_results/' + 'sens_' + 'hist_' + method_name + '_' + criterion_name + '.png')
     plt.show()
 
 
@@ -76,7 +76,7 @@ def plot_lineplot_sensitivity(data_sens, list_alt_names, method_name, criterion_
     plt.title(method_name + ', modification of ' + criterion_name + ' weights')
     plt.grid(linestyle = ':')
     plt.tight_layout()
-    plt.savefig('./output/sensitivity_analysis_results/' + 'sens_' + 'lineplot_' + method_name + '_' + criterion_name + '.png')
+    plt.savefig('./results/sensitivity_analysis_results/' + 'sens_' + 'lineplot_' + method_name + '_' + criterion_name + '.png')
     plt.show()
 
 
@@ -91,8 +91,8 @@ def draw_heatmap(df_new_heatmap, title, lastC, year):
     plt.title('Correlation: ' + title + ', year: ' + year)
     plt.tight_layout()
     title = title.replace('$', '')
-    plt.savefig('./output/' + 'correlations_' + title + '_' + lastC + '_' + year + '.pdf')
-    plt.savefig('./output/' + 'correlations_' + title + '_' + lastC + '_' + year + '.png')
+    plt.savefig('./results/' + 'correlations_' + title + '_' + lastC + '_' + year + '.pdf')
+    plt.savefig('./results/' + 'correlations_' + title + '_' + lastC + '_' + year + '.png')
     plt.show()
 
 
@@ -122,7 +122,7 @@ def plot_radar(data):
     ax.set_axisbelow(True)
     plt.legend(data.columns, bbox_to_anchor=(1.0, 0.95, 0.4, 0.2), loc='upper left')
     plt.tight_layout()
-    plt.savefig('./output/' + 'radar_chart' + '.png')
+    plt.savefig('./results/' + 'radar_chart' + '.png')
     plt.show()
 
 
@@ -145,7 +145,7 @@ def plot_boxplot(data, x, y, xtitle, ytitle, title, filename, flag_rotation = Tr
     ncol=4, mode="expand", borderaxespad=0., edgecolor = 'black', title = 'Weights change', fontsize = 12)
 
     plt.tight_layout()
-    plt.savefig('./output/' + filename + '.png')
+    plt.savefig('./results/' + filename + '.png')
     plt.show()
 
 
@@ -183,7 +183,7 @@ def plot_barplot_simulations(df_plot, xtitle, ytitle, title, filename, wider = F
     ax.grid(True, linestyle = ':')
     ax.set_axisbelow(True)
     plt.tight_layout()
-    plt.savefig('./output/' + filename + '.png')
+    plt.savefig('./results/' + filename + '.png')
     plt.show()
 
 
@@ -212,7 +212,7 @@ def plot_barplot_sensitivity_coeff(df_plot, xtitle, ytitle, filename, colors, la
     plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='lower left',
     ncol=2, mode="expand", borderaxespad=0., edgecolor = 'black', title = 'Weight modification', fontsize = 12)
     plt.tight_layout()
-    plt.savefig('./output/' + filename + 'sens_coeff_' + lastC + '_' + year + '.pdf')
+    plt.savefig('./results/' + filename + 'sens_coeff_' + lastC + '_' + year + '.pdf')
     plt.show()
 
 
@@ -249,7 +249,7 @@ def plot_barplot_sensitivity_coeff3(df_plot, xtitle, ytitle, title, filename, la
     ax.set_axisbelow(True)
     plt.title(title, fontsize = 12)
     plt.tight_layout()
-    plt.savefig('./output/' + filename + 'sens_coeff3_' + lastC + '_' + year + '.pdf')
+    plt.savefig('./results/' + filename + 'sens_coeff3_' + lastC + '_' + year + '.pdf')
     plt.show()
 
 
@@ -292,7 +292,7 @@ def plot_scatter(data, model_compare, lastC, year):
     
         plt.title('Year: ' + year)
         plt.tight_layout()
-        plt.savefig('./output/scatter_' + el[0] + '_' + lastC + '_' + year + '.pdf')
-        plt.savefig('./output/scatter_' + el[0] + '_' + lastC + '_' + year + '.png')
+        plt.savefig('./results/scatter_' + el[0] + '_' + lastC + '_' + year + '.pdf')
+        plt.savefig('./results/scatter_' + el[0] + '_' + lastC + '_' + year + '.png')
         plt.show()
 

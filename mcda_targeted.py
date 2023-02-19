@@ -1,10 +1,8 @@
 import numpy as np
 import pandas as pd
-import sys
 import copy
 import os
 import matplotlib.pyplot as plt
-import matplotlib
 import seaborn as sns
 
 from pyrepo_mcda import normalizations as norms
@@ -25,7 +23,7 @@ def main():
     path = 'DATASET/'
 
     #------------------------------------------------------------------------------------------------
-    #loop for multi-target TOPSIS
+    # Additional loop for multi-target TOPSIS for subsequent years
     years = ['2016', '2017', '2018', '2019', '2020']
     flag_C10 = False
     rank_results = pd.DataFrame()
@@ -76,11 +74,11 @@ def main():
 
     rank_results['Ai'] = list(list_alt_names)
     rank_results = rank_results.set_index('Ai')
-    rank_results.to_csv('./output/MT_TOPSIS_years_' + lastC + '.csv')
+    rank_results.to_csv('./results/MT_TOPSIS_rank_years_' + lastC + '.csv')
 
     #=====================================================================================================
 
-    # assessment for 2020
+    # Main part of research: assessment for 2020
     year = '2020'
     data = pd.read_csv(os.path.join(path, 'data_' + year + '.csv'), index_col = 'Country')
     data_target = pd.read_csv(os.path.join(path, 'target.csv'), index_col = 'Country')
@@ -121,6 +119,9 @@ def main():
     # criteria weights
     weights = mcda_weights.critic_weighting(matrix)
 
+    pref_results = pd.DataFrame()
+    pref_results['Ai'] = list(list_alt_names)
+
     rank_results = pd.DataFrame()
     rank_results['Ai'] = list(list_alt_names)
     
@@ -128,13 +129,15 @@ def main():
     topsis_targeted = TOPSIS_TARGETED(normalization_method = targeted_minmax_normalization)
     pref = topsis_targeted(matrix, matrix_target, weights, types)
     rank = rank_preferences(pref, reverse = True)
+    pref_results['MT-TOPSIS'] = pref
     rank_results['MT-TOPSIS'] = rank
 
-    # classic methods
+    # classic MCDA methods
     # TOPSIS
     topsis = TOPSIS(normalization_method = norms.minmax_normalization)
     pref = topsis(matrix, weights, types)
     rank = rank_preferences(pref, reverse = True)
+    pref_results['TOPSIS'] = pref
     rank_results['TOPSIS'] = rank
 
     #SPOTIS
@@ -144,21 +147,26 @@ def main():
     spotis = SPOTIS()
     pref = spotis(matrix, weights, types, bounds)
     rank = rank_preferences(pref, reverse = False)
+    pref_results['SPOTIS'] = pref
     rank_results['SPOTIS'] = rank
 
     #VIKOR
     vikor = VIKOR(normalization_method = norms.minmax_normalization)
     pref = vikor(matrix, weights, types)
     rank = rank_preferences(pref, reverse = False)
+    pref_results['VIKOR'] = pref
     rank_results['VIKOR'] = rank
 
+    pref_results = pref_results.set_index('Ai')
+    pref_results.to_csv('./results/final_preferences_' + lastC + '_' + year + '.csv')
+
     rank_results = rank_results.set_index('Ai')
-    rank_results.to_csv('./output/final_rankings_' + lastC + '_' + year + '.csv')
+    rank_results.to_csv('./results/final_rankings_' + lastC + '_' + year + '.csv')
     
     
     #=============================================================================
     # comparison of multi-target TOPSIS and TOPSIS
-    # scatter
+    # scatter plot
     
     names = ['TOPSIS']
     model_compare = []
@@ -166,11 +174,12 @@ def main():
         model_compare.append([name, 'MT-' + name])
 
     data = copy.deepcopy(rank_results)
+    sns.set_style("darkgrid")
     plot_scatter(data = data, model_compare = model_compare, lastC = lastC, year = year)
     #=============================================================================
     
     
-    #bar chart zwykle
+    #bar chart
     df_plot = copy.deepcopy(rank_results)
     colors = ['#b41f77', '#1f77b4', '#77b41f', '#FFBF00']
     plot_barplot(df_plot, df_plot.index, colors = colors, lastC = lastC, year = year)
@@ -208,7 +217,7 @@ def main():
     # correlation matrix with Pearson coefficient
     draw_heatmap(df_new_heatmap_pearson, r'$Pearson$', lastC, year = year)
 
-    df_new_heatmap_pearson.to_csv('./output/df_new_heatmap_pearson.csv')
+    df_new_heatmap_pearson.to_csv('./results/df_new_heatmap_pearson.csv')
     
 
 
