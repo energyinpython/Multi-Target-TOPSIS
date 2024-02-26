@@ -83,7 +83,7 @@ def plot_lineplot_sensitivity(data_sens, list_alt_names, method_name, criterion_
 # heat maps with correlations for basic version - used here
 def draw_heatmap(df_new_heatmap, title, lastC, year):
     plt.figure(figsize = (8,5))
-    sns.set(font_scale=1.1)
+    sns.set(font_scale=1.3)
     heatmap = sns.heatmap(df_new_heatmap, annot=True, fmt=".4f", cmap="PuBu",
                           linewidth=0.5, linecolor='w')
     plt.yticks(va="center")
